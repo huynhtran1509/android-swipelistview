@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <groupId>com.willowtreeapps</groupId>
+        <artifactId>wta-parent</artifactId>
+        <version>1.2.1</version>
     </parent>
 
     <groupId>com.fortysevendeg.swipelistview</groupId>
@@ -28,9 +28,9 @@
     </modules>
 
     <scm>
-        <url>https://github.com/47deg/${project.name.github}/tree/${scm.branch}</url>
-        <connection>scm:git:git://github.com/47deg/${project.name.github}.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/47deg/${project.name.github}.git</developerConnection>
+        <url>https://github.com/willowtreeapps/${project.name.github}/tree/${scm.branch}</url>
+        <connection>https://github.com/willowtreeapps/android-swipelistview.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/willowtreeapps/${project.name.github}.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -44,10 +44,10 @@
 
     <issueManagement>
         <system>Github Issue Tracking</system>
-        <url>https://github.com/47deg/${project.name.github}/issues</url>
+        <url>https://github.com/willowtreeapps/${project.name.github}/issues</url>
     </issueManagement>
 
-    <distributionManagement>
+<!--    <distributionManagement>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus snapshot repository</name>
@@ -58,7 +58,7 @@
             <name>Sonatype Nexus release repository</name>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
-    </distributionManagement>
+    </distributionManagement>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -25,12 +25,18 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -157,12 +163,25 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      *
      * @param backView
      */
-    private void setBackView(View backView) {
+    private void setBackView(final View backView) {
         this.backView = backView;
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swipeListView.onClickBackView(downPosition);
+                //Ensure not hitting front view
+                if (openedRight.get(downPosition)) {
+                    if (downX > backView.getWidth() - rightOffset) {
+                        swipeListView.onClickFrontView(downPosition);
+                    } else {
+                        swipeListView.onClickBackView(downPosition);
+                    }
+                } else {
+                    if (downX < leftOffset) {
+                        swipeListView.onClickFrontView(downPosition);
+                    } else {
+                        swipeListView.onClickBackView(downPosition);
+                    }
+                }
             }
         });
     }
@@ -408,6 +427,15 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     protected boolean isChecked(int position) {
         return position < checked.size() && checked.get(position);
+    }
+
+    /**
+     * Get if item is opened
+     * @param position position in list
+     * @return
+     */
+    protected boolean isOpened(int position) {
+        return position < opened.size() && opened.get(position);
     }
 
     /**
@@ -688,7 +716,21 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 }
             }
         }
+    }
 
+    /**
+     * Close all opened items except the given one
+     */
+    void closeOtherOpenedItems(int position) {
+        if (opened != null) {
+            int start = swipeListView.getFirstVisiblePosition();
+            int end = swipeListView.getLastVisiblePosition();
+            for (int i = start; i <= end; i++) {
+                if (opened.get(i) && i != position) {
+                    closeAnimate(swipeListView.getChildAt(i - start).findViewById(swipeFrontView), i);
+                }
+            }
+        }
     }
 
     /**
@@ -969,10 +1011,23 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         final ViewGroup.LayoutParams lp = dismissView.getLayoutParams();
         final int originalHeight = dismissView.getHeight();
 
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(animationTime);
+        AnimatorSet set = new AnimatorSet();
+
+        ValueAnimator heightAnimator = ValueAnimator.ofInt(originalHeight, 1).setDuration(animationTime);
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(dismissView, "alpha", 1, 0).setDuration(animationTime);
+        set.playTogether(heightAnimator, alphaAnimator);
+
+        if ((leftOffset > 0 || rightOffset > 0) && opened.get(dismissPosition)) {
+            View front = dismissView.findViewById(swipeFrontView);
+            float from = openedRight.get(dismissPosition) ? dismissView.getWidth() - rightOffset : leftOffset - dismissView.getWidth();
+            float to = openedRight.get(dismissPosition) ? dismissView.getWidth() : -dismissView.getWidth();
+
+            ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(front, "translationX", from, to).setDuration(animationTime);
+            set.play(translationAnimator);
+        }
 
         if (doPendingDismiss) {
-            animator.addListener(new AnimatorListenerAdapter() {
+            set.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     --dismissAnimationRefCount;
@@ -983,7 +1038,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             });
         }
 
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 lp.height = (Integer) valueAnimator.getAnimatedValue();
@@ -992,7 +1047,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         });
 
         pendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
-        animator.start();
+        set.start();
     }
 
     protected void resetPendingDismisses() {
@@ -1029,6 +1084,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 lp = pendingDismiss.view.getLayoutParams();
                 lp.height = originalHeight;
                 pendingDismiss.view.setLayoutParams(lp);
+
+                View front = pendingDismiss.view.findViewById(swipeFrontView);
+                setAlpha(front, 1f);
+                setTranslationX(front, 0);
+                opened.set(pendingDismiss.position, false);
             }
         }
 

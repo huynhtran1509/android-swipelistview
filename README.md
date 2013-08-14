@@ -33,23 +33,8 @@ snapshot artifacts are being deployed.
 SwipeListView official releases will be made available at Maven Central.
 
 ```xml
-<repository>
-    <id>sonatype</id>
-    <url>https://oss.sonatype.org/content/groups/public/</url>
-    <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </releases>
-    <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>ignore</checksumPolicy>
-    </snapshots>
-</repository>
-
 <dependency>
-    <groupId>com.fortysevendeg.android</groupId>
+    <groupId>com.fortysevendeg.swipelistview</groupId>
     <artifactId>swipelistview</artifactId>
     <version>1.0-SNAPSHOT</version>
     <type>apklib</type>

@@ -241,6 +241,15 @@ public class SwipeListView extends ListView {
     }
 
     /**
+     * Get if item is opened
+     * @param position
+     * @return
+     */
+    public boolean isOpened(int position) {
+        return touchListener.isOpened(position);
+    }
+
+    /**
      * Get positions selected
      *
      * @return
@@ -678,4 +687,10 @@ public class SwipeListView extends ListView {
         touchListener.closeOpenedItems();
     }
 
+    /**
+     * Close all opened items except the given one
+     */
+    public void closeOtherOpenedItems(int position) {
+        touchListener.closeOtherOpenedItems(position);
+    }
 }
