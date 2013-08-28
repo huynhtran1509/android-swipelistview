@@ -13,7 +13,7 @@
     <groupId>com.fortysevendeg.swipelistview</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>SwipeListView (Parent)</name>
     <description>An Android List View implementation with support for drawable cells and many other swipe related
@@ -64,7 +64,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <gradle.version>1.0-SNAPSHOT</gradle.version>
+        <gradle.version>1.0</gradle.version>
 
         <java.version>1.6</java.version>
         <android.platform>18</android.platform>
