@@ -986,6 +986,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     deltaX = viewWidth - rightOffset;
                 }
             }
+
+            if (swipeMode == SwipeListView.SWIPE_MODE_LEFT && deltaX > 0) {
+                deltaX = 0;
+            } else if (swipeMode == SwipeListView.SWIPE_MODE_RIGHT && deltaX < 0) {
+                deltaX = 0;
+            }
+
             setTranslationX(frontView, deltaX);
         }
     }
