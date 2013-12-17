@@ -242,7 +242,12 @@
                 style="@style/SettingText"
                 android:text="@string/openOnLongPress"/>
 
-
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/overshoot_offset"
+            style="@style/SettingText"
+            android:text="@string/overshootOffset"/>
     </LinearLayout>
 
 </ScrollView>

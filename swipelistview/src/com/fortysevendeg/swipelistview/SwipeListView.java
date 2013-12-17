@@ -176,6 +176,8 @@ public class SwipeListView extends ListView {
         int swipeActionLeft = SWIPE_ACTION_REVEAL;
         int swipeActionRight = SWIPE_ACTION_REVEAL;
 
+        boolean overshootOffset = true;
+
         if (attrs != null) {
             TypedArray styled = getContext().obtainStyledAttributes(attrs, R.styleable.SwipeListView);
             swipeMode = styled.getInt(R.styleable.SwipeListView_swipeMode, SWIPE_MODE_BOTH);
@@ -188,6 +190,7 @@ public class SwipeListView extends ListView {
             swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
             swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableChecked, 0);
             swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
+            overshootOffset = styled.getBoolean(R.styleable.SwipeListView_swipeOvershootOffset, true);
             swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
             swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
         }
@@ -216,6 +219,7 @@ public class SwipeListView extends ListView {
         touchListener.setSwipeOpenOnLongPress(swipeOpenOnLongPress);
         touchListener.setSwipeDrawableChecked(swipeDrawableChecked);
         touchListener.setSwipeDrawableUnchecked(swipeDrawableUnchecked);
+        touchListener.setSwipeOvershootOffset(overshootOffset);
         setOnTouchListener(touchListener);
         setOnScrollListener(touchListener.makeScrollListener());
     }
@@ -692,5 +696,9 @@ public class SwipeListView extends ListView {
      */
     public void closeOtherOpenedItems(int position) {
         touchListener.closeOtherOpenedItems(position);
+    }
+
+    public void setSwipeOvershootOffset(boolean value) {
+        touchListener.setSwipeOvershootOffset(value);
     }
 }

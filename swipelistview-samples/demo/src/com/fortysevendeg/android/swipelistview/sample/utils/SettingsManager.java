@@ -30,6 +30,7 @@ public class SettingsManager {
     private float swipeOffsetRight = 0;
     private int swipeActionLeft = SwipeListView.SWIPE_ACTION_REVEAL;
     private int swipeActionRight = SwipeListView.SWIPE_ACTION_REVEAL;
+    private boolean swipeOvershootOffset = true;
 
     private static SettingsManager settingsManager = new SettingsManager();
 
@@ -107,5 +108,13 @@ public class SettingsManager {
 
     public void setSwipeActionRight(int swipeActionRight) {
         this.swipeActionRight = swipeActionRight;
+    }
+
+    public boolean isSwipeOvershootOffset() {
+        return swipeOvershootOffset;
+    }
+
+    public void setSwipeOvershootOffset(boolean swipeOvershootOffset) {
+        this.swipeOvershootOffset = swipeOvershootOffset;
     }
 }

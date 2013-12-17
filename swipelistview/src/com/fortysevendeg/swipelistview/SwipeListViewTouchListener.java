@@ -73,6 +73,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 
     private float leftOffset = 0;
     private float rightOffset = 0;
+    private boolean swipeOvershootOffset = true;
 
     private int swipeDrawableChecked = 0;
     private int swipeDrawableUnchecked = 0;
@@ -978,8 +979,19 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 setTranslationX(frontView, deltaX);
             }
         } else {
+            if (!swipeOvershootOffset) {
+                if (!swipingRight && viewWidth + deltaX < leftOffset) {
+                    deltaX = -(viewWidth - leftOffset);
+                } else if (swipingRight && viewWidth - deltaX < rightOffset) {
+                    deltaX = viewWidth - rightOffset;
+                }
+            }
             setTranslationX(frontView, deltaX);
         }
+    }
+
+    public void setSwipeOvershootOffset(boolean swipeOvershootOffset) {
+        this.swipeOvershootOffset = swipeOvershootOffset;
     }
 
     /**

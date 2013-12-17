@@ -182,6 +182,7 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
         swipeListView.setOffsetRight(convertDpToPixel(settings.getSwipeOffsetRight()));
         swipeListView.setAnimationTime(settings.getSwipeAnimationTime());
         swipeListView.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
+        swipeListView.setSwipeOvershootOffset(settings.isSwipeOvershootOffset());
     }
 
     public int convertDpToPixel(float dp) {

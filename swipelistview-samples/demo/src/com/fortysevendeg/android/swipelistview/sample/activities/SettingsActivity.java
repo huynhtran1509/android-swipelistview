@@ -206,6 +206,14 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        CheckBox cbOvershootOffset = (CheckBox) findViewById(R.id.overshoot_offset);
+        cbOvershootOffset.setChecked(settings.isSwipeOvershootOffset());
+        cbOvershootOffset.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                settings.setSwipeOvershootOffset(isChecked);
+            }
+        });
     }
 
 }
