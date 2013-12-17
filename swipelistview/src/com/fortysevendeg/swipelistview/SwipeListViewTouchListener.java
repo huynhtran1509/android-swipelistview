@@ -147,7 +147,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             @Override
             public void onClick(View v) {
                 swipeListView.onClickFrontView(downPosition);
-                resetCell();
+                resetCell(downPosition);
             }
         });
         if (swipeOpenOnLongPress) {
@@ -539,7 +539,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         swipeListView.resetScrolling();
-                        resetCell();
+                        resetCell(position);
                     }
                 });
     }
@@ -581,7 +581,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             closeOpenedItems();
                             performDismiss(view, position, true);
                         }
-                        resetCell();
+                        resetCell(position);
                     }
                 });
 
@@ -624,13 +624,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                                 swipeListView.onClosed(position, openedRight.get(position));
                             }
                         }
-                        resetCell();
+                        resetCell(position);
                     }
                 });
     }
 
-    private void resetCell() {
-        if (downPosition != ListView.INVALID_POSITION) {
+    private void resetCell(int position) {
+        if (downPosition == position && downPosition != ListView.INVALID_POSITION) {
             if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_CHOICE) {
                 backView.setVisibility(View.VISIBLE);
             }
