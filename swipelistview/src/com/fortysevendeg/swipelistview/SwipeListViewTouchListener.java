@@ -58,6 +58,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     private int swipeMode = SwipeListView.SWIPE_MODE_BOTH;
     private boolean swipeOpenOnLongPress = true;
     private boolean swipeClosesAllItemsWhenListMoves = true;
+    private boolean closeOthersOnOpen = false;
 
     private int swipeFrontView = 0;
     private int swipeBackView = 0;
@@ -237,6 +238,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     public void setSwipeClosesAllItemsWhenListMoves(boolean swipeClosesAllItemsWhenListMoves) {
         this.swipeClosesAllItemsWhenListMoves = swipeClosesAllItemsWhenListMoves;
+    }
+
+    public void setCloseOthersOnOpen(boolean closeOthersOnOpen) {
+        this.closeOthersOnOpen = closeOthersOnOpen;
     }
 
     /**
@@ -914,6 +919,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             swipeCurrentAction = SwipeListView.SWIPE_ACTION_REVEAL;
                         }
                         swipeListView.onStartOpen(downPosition, swipeCurrentAction, swipingRight);
+                        if (closeOthersOnOpen) {
+                            closeOtherOpenedItems(downPosition);
+                        }
                     }
                     swipeListView.requestDisallowInterceptTouchEvent(true);
                     MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);

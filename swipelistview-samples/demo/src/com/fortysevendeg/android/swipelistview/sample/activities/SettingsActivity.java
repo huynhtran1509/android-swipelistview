@@ -214,6 +214,15 @@ public class SettingsActivity extends Activity {
                 settings.setSwipeOvershootOffset(isChecked);
             }
         });
+
+        CheckBox cbCloseOthersOnOpen = (CheckBox) findViewById(R.id.close_others_on_open);
+        cbCloseOthersOnOpen.setChecked(settings.isCloseOthersWhenOpen());
+        cbCloseOthersOnOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                settings.setCloseOthersWhenOpen(isChecked);
+            }
+        });
     }
 
 }

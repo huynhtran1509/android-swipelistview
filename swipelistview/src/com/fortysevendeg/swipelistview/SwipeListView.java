@@ -167,6 +167,7 @@ public class SwipeListView extends ListView {
         int swipeMode = SWIPE_MODE_BOTH;
         boolean swipeOpenOnLongPress = true;
         boolean swipeCloseAllItemsWhenMoveList = true;
+        boolean closeOthersOnOpen = false;
         long swipeAnimationTime = 0;
         float swipeOffsetLeft = 0;
         float swipeOffsetRight = 0;
@@ -188,6 +189,7 @@ public class SwipeListView extends ListView {
             swipeOpenOnLongPress = styled.getBoolean(R.styleable.SwipeListView_swipeOpenOnLongPress, true);
             swipeAnimationTime = styled.getInteger(R.styleable.SwipeListView_swipeAnimationTime, 0);
             swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
+            closeOthersOnOpen = styled.getBoolean(R.styleable.SwipeListView_closeOthersOnOpen, false);
             swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableChecked, 0);
             swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
             overshootOffset = styled.getBoolean(R.styleable.SwipeListView_swipeOvershootOffset, true);
@@ -216,6 +218,7 @@ public class SwipeListView extends ListView {
         touchListener.setSwipeActionRight(swipeActionRight);
         touchListener.setSwipeMode(swipeMode);
         touchListener.setSwipeClosesAllItemsWhenListMoves(swipeCloseAllItemsWhenMoveList);
+        touchListener.setCloseOthersOnOpen(closeOthersOnOpen);
         touchListener.setSwipeOpenOnLongPress(swipeOpenOnLongPress);
         touchListener.setSwipeDrawableChecked(swipeDrawableChecked);
         touchListener.setSwipeDrawableUnchecked(swipeDrawableUnchecked);
@@ -555,6 +558,10 @@ public class SwipeListView extends ListView {
         touchListener.setSwipeClosesAllItemsWhenListMoves(swipeCloseAllItemsWhenMoveList);
     }
 
+    public void setCloseOthersWhenOpen(boolean closeOthersWhenOpen) {
+        touchListener.setCloseOthersOnOpen(closeOthersWhenOpen);
+    }
+
     /**
      * Sets if the user can open an item with long pressing on cell
      *
@@ -607,6 +614,10 @@ public class SwipeListView extends ListView {
      */
     public void setSwipeActionRight(int swipeActionRight) {
         touchListener.setSwipeActionRight(swipeActionRight);
+    }
+
+    public void setSwipeOvershootOffset(boolean value) {
+        touchListener.setSwipeOvershootOffset(value);
     }
 
     /**
@@ -689,16 +700,5 @@ public class SwipeListView extends ListView {
      */
     public void closeOpenedItems() {
         touchListener.closeOpenedItems();
-    }
-
-    /**
-     * Close all opened items except the given one
-     */
-    public void closeOtherOpenedItems(int position) {
-        touchListener.closeOtherOpenedItems(position);
-    }
-
-    public void setSwipeOvershootOffset(boolean value) {
-        touchListener.setSwipeOvershootOffset(value);
     }
 }

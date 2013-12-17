@@ -25,6 +25,7 @@ public class SettingsManager {
     private int swipeMode = SwipeListView.SWIPE_MODE_BOTH;
     private boolean swipeOpenOnLongPress = true;
     private boolean swipeCloseAllItemsWhenMoveList = true;
+    private boolean closeOthersWhenOpen = false;
     private long swipeAnimationTime = 0;
     private float swipeOffsetLeft = 0;
     private float swipeOffsetRight = 0;
@@ -116,5 +117,13 @@ public class SettingsManager {
 
     public void setSwipeOvershootOffset(boolean swipeOvershootOffset) {
         this.swipeOvershootOffset = swipeOvershootOffset;
+    }
+
+    public void setCloseOthersWhenOpen(boolean closeOthersWhenOpen) {
+        this.closeOthersWhenOpen = closeOthersWhenOpen;
+    }
+
+    public boolean isCloseOthersWhenOpen() {
+        return closeOthersWhenOpen;
     }
 }

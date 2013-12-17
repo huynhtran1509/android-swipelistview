@@ -42,6 +42,7 @@
     <string name="milliseconds">Milliseconds</string>
     <string name="openOnLongPress">Open On Long Press</string>
     <string name="overshootOffset">Allow swipe to overshoot offset</string>
+    <string name="closeOthersOnOpen">Close others when opening</string>
 
     <string name="about">About</string>
     <string name="aboutMessage">This is just a simple demo for the Open Source SwipeListView Android Library by 47 Degrees. Find all source, documentation and packaged downloads at GitHub. Cheers!</string>

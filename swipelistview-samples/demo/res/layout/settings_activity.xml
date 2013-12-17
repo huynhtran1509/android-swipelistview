@@ -248,6 +248,12 @@
             android:id="@+id/overshoot_offset"
             style="@style/SettingText"
             android:text="@string/overshootOffset"/>
-    </LinearLayout>
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/close_others_on_open"
+            style="@style/SettingText"
+            android:text="@string/closeOthersOnOpen"/>
+    </LinearLayout>
 </ScrollView>
