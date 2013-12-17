@@ -36,7 +36,7 @@ SwipeListView official releases will be made available at Maven Central.
 <dependency>
     <groupId>com.fortysevendeg.swipelistview</groupId>
     <artifactId>swipelistview</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
     <type>apklib</type>
 </dependency>
 ```
