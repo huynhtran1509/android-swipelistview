@@ -170,19 +170,23 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Ensure not hitting front view
-                if (openedRight.get(downPosition)) {
-                    if (downX > backView.getWidth() - rightOffset) {
-                        swipeListView.onClickFrontView(downPosition);
+                //Ensure not hitting front view in Gingerbread
+                if (isGingerbread()) {
+                    if (openedRight.get(downPosition)) {
+                        if (downX > backView.getWidth() - rightOffset) {
+                            swipeListView.onClickFrontView(downPosition);
+                        } else {
+                            swipeListView.onClickBackView(downPosition);
+                        }
                     } else {
-                        swipeListView.onClickBackView(downPosition);
+                        if (downX < leftOffset) {
+                            swipeListView.onClickFrontView(downPosition);
+                        } else {
+                            swipeListView.onClickBackView(downPosition);
+                        }
                     }
                 } else {
-                    if (downX < leftOffset) {
-                        swipeListView.onClickFrontView(downPosition);
-                    } else {
-                        swipeListView.onClickBackView(downPosition);
-                    }
+                    swipeListView.onClickBackView(downPosition);
                 }
             }
         });
@@ -625,8 +629,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_CHOICE) {
                 backView.setVisibility(View.VISIBLE);
             }
-            frontView.setClickable(opened.get(downPosition));
-            frontView.setLongClickable(opened.get(downPosition));
+            if (isGingerbread()) {
+                frontView.setClickable(opened.get(downPosition));
+                frontView.setLongClickable(opened.get(downPosition));
+            }
             frontView = null;
             backView = null;
             downPosition = ListView.INVALID_POSITION;
@@ -779,8 +785,12 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         downX = motionEvent.getRawX();
                         downPosition = childPosition;
 
-                        frontView.setClickable(!opened.get(downPosition));
-                        frontView.setLongClickable(!opened.get(downPosition));
+                        // Before Honeycomb animations don't actually move views.
+                        // You must view the view not clickable so that touches go to the back view.
+                        if (isGingerbread()) {
+                            frontView.setClickable(!opened.get(downPosition));
+                            frontView.setLongClickable(!opened.get(downPosition));
+                        }
 
                         velocityTracker = VelocityTracker.obtain();
                         velocityTracker.addMovement(motionEvent);
@@ -1119,4 +1129,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 
     }
 
+    private static boolean isGingerbread() {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1;
+    }
 }
