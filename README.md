@@ -90,10 +90,12 @@ If you decide to use SwipeListView as a view, you can define it in your xml layo
             swipe:swipeActionRight="[reveal | dismiss]"
             swipe:swipeMode="[none | both | right | left]"
             swipe:swipeCloseAllItemsWhenMoveList="[true | false]"
+            swipe:closeOthersOnOpen="[true | false]"
             swipe:swipeOpenOnLongPress="[true | false]"
             swipe:swipeAnimationTime="[miliseconds]"
             swipe:swipeOffsetLeft="[dimension]"
             swipe:swipeOffsetRight="[dimension]"
+            swipe:swipeOvershootOffset="[true | false]"
             />
 ```
 
@@ -103,10 +105,12 @@ If you decide to use SwipeListView as a view, you can define it in your xml layo
 * `swipeActionRight` - Optional - right swipe action Default: 'reveal'
 * `swipeMode` - Gestures to enable or 'none'. Default: 'both'
 * `swipeCloseAllItemsWhenMoveList` - Close revealed items on list motion. Default: 'true'
+* `closeOthersOnOpen` - Close other revealed items on opening an item. Default: 'false'
 * `swipeOpenOnLongPress` - Reveal on long press Default: 'true'
 * `swipeAnimationTime` - item drop animation time. Default: android configuration
 * `swipeOffsetLeft` - left offset
 * `swipeOffsetRight` - right offset
+* `swipeOvershootOffset` - if you can swipe past the set offset. Default: 'true'
 
 # License
 
