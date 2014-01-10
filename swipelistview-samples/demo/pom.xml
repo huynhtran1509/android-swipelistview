@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>com.fortysevendeg.swipelistview</groupId>
+      <groupId>com.willowtreeapps.fortysevendeg.swipelistview</groupId>
       <artifactId>parent-samples</artifactId>
-      <version>1.1</version>
+      <version>1.2</version>
       <relativePath>../pom.xml</relativePath>
     </parent>
 

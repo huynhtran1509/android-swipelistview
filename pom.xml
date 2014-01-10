@@ -10,10 +10,10 @@
         <version>1.2.1</version>
     </parent>
 
-    <groupId>com.fortysevendeg.swipelistview</groupId>
+    <groupId>com.willowtreeapps.fortysevendeg.swipelistview</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <name>SwipeListView (Parent)</name>
     <description>An Android List View implementation with support for drawable cells and many other swipe related
