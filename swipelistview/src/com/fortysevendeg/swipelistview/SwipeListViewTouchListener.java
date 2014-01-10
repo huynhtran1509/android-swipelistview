@@ -346,6 +346,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     protected void openAnimate(int position) {
         openAnimate(swipeListView.getChildAt(position - swipeListView.getFirstVisiblePosition()).findViewById(swipeFrontView), position);
+        if (closeOthersOnOpen) closeOtherOpenedItems(downPosition);
     }
 
     /**
